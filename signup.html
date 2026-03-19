@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account — AquariusLeo Cleaning Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2BB6F1;
+      --blue-dark: #0E6A96;
+      --blue-light: #E8F7FD;
+      --dark: #111827;
+      --gray: #6B7280;
+      --light: #F9FAFB;
+      --border: #E5E7EB;
+      --white: #ffffff;
+      --error: #EF4444;
+      --success: #10B981;
+    }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+ 
+    /* ── NAV ── */
+    nav {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo-text { font-weight: 700; font-size: 1.1rem; color: var(--dark); }
+    .nav-logo-text span { color: var(--blue); }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-signin-link {
+      font-size: 0.9rem; font-weight: 500; color: var(--gray);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-signin-link:hover { color: var(--blue); }
+    .nav-back {
+      font-size: 0.9rem; font-weight: 500; color: var(--gray);
+      text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--blue); }
+ 
+    /* ── MAIN LAYOUT ── */
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      min-height: calc(100vh - 68px);
+    }
+ 
+    /* ── LEFT DECORATIVE PANEL ── */
+    .left-panel {
+      background: linear-gradient(150deg, #0a4f72 0%, #0E6A96 40%, #2BB6F1 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 64px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Big decorative circles */
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 90px solid rgba(255,255,255,0.05);
+      top: -160px; right: -160px;
+    }
+    .left-panel::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 60px solid rgba(255,255,255,0.05);
+      bottom: -80px; left: -80px;
+    }
+    .left-inner { position: relative; z-index: 1; max-width: 380px; }
+    .left-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15); color: white;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 6px 14px; border-radius: 100px;
+      margin-bottom: 28px; backdrop-filter: blur(6px);
+    }
+    .left-tag::before { content: '✦'; font-size: 0.7rem; }
+    .left-panel h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; color: white; line-height: 1.2; margin-bottom: 16px;
+    }
+    .left-panel h1 em { font-style: italic; opacity: 0.85; }
+    .left-panel > .left-inner > p { color: rgba(255,255,255,0.8); font-size: 1rem; line-height: 1.65; margin-bottom: 40px; }
+ 
+    /* Testimonial card */
+    .testimonial-card {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 20px;
+      padding: 24px 26px;
+      backdrop-filter: blur(10px);
+      margin-bottom: 32px;
+    }
+    .testimonial-stars { color: #FCD34D; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 10px; }
+    .testimonial-text { color: rgba(255,255,255,0.92); font-size: 0.9rem; line-height: 1.6; font-style: italic; margin-bottom: 14px; }
+    .testimonial-author { display: flex; align-items: center; gap: 10px; }
+    .testimonial-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, #7DD8F5, #2BB6F1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700; color: white;
+    }
+    .testimonial-name { font-size: 0.85rem; font-weight: 600; color: white; }
+    .testimonial-loc { font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+ 
+    /* Stats row */
+    .stats-row { display: flex; gap: 24px; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 1.6rem; font-weight: 700; color: white; line-height: 1; }
+    .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.65); margin-top: 4px; }
+ 
+    /* ── RIGHT FORM PANEL ── */
+    .right-panel {
+      background: white;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 40px;
+      overflow-y: auto;
+    }
+    .signup-card {
+      width: 100%;
+      max-width: 460px;
+      animation: slideUp 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    }
+ 
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+ 
+    .card-header { margin-bottom: 32px; }
+    .card-header h2 { font-size: 1.8rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .card-header p { color: var(--gray); font-size: 0.95rem; }
+    .card-header p a { color: var(--blue); font-weight: 600; text-decoration: none; }
+    .card-header p a:hover { text-decoration: underline; }
+ 
+    /* Step indicator */
+    .step-indicator { display: flex; align-items: center; gap: 0; margin-bottom: 32px; }
+    .step {
+      display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; position: relative;
+    }
+    .step:not(:last-child)::after {
+      content: ''; position: absolute; top: 14px; left: 50%; width: 100%;
+      height: 2px; background: var(--border); z-index: 0;
+    }
+    .step.active:not(:last-child)::after,
+    .step.done:not(:last-child)::after { background: var(--blue); }
+    .step-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid var(--border); background: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 700; color: var(--gray);
+      position: relative; z-index: 1; transition: all 0.3s;
+    }
+    .step.active .step-circle { border-color: var(--blue); background: var(--blue); color: white; }
+    .step.done .step-circle { border-color: var(--blue); background: var(--blue); color: white; }
+    .step-label { font-size: 0.72rem; font-weight: 600; color: var(--gray); text-align: center; }
+    .step.active .step-label { color: var(--blue); }
+    .step.done .step-label { color: var(--blue); }
+ 
+    /* Form */
+    .form-step { display: none; animation: slideUp 0.35s cubic-bezier(0.16,1,0.3,1) both; }
+    .form-step.active { display: block; }
+ 
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group.full { grid-column: 1 / -1; }
+ 
+    label {
+      display: block; font-size: 0.855rem; font-weight: 600;
+      color: var(--dark); margin-bottom: 7px;
+    }
+    .optional { font-weight: 400; color: var(--gray); font-size: 0.8rem; margin-left: 4px; }
+    .input-wrap { position: relative; }
+    .input-icon {
+      position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+      color: var(--gray); pointer-events: none; display: flex;
+    }
+    .input-icon svg { width: 17px; height: 17px; }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    select {
+      width: 100%; padding: 11px 13px 11px 40px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--dark);
+      background: var(--light); outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      -webkit-appearance: none; appearance: none;
+    }
+    input:focus, select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(43,182,241,0.12);
+      background: white;
+    }
+    input.error, select.error { border-color: var(--error); }
+    input.valid { border-color: var(--success); }
+    .select-wrap { position: relative; }
+    .select-arrow {
+      position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+      pointer-events: none; color: var(--gray);
+    }
+    .toggle-pw {
+      position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: var(--gray);
+      padding: 0; display: flex; align-items: center; transition: color 0.2s;
+    }
+    .toggle-pw:hover { color: var(--blue); }
+    .toggle-pw svg { width: 17px; height: 17px; }
+    .error-msg {
+      font-size: 0.78rem; color: var(--error); margin-top: 5px;
+      display: none; align-items: center; gap: 4px;
+    }
+    .error-msg.show { display: flex; }
+    .hint { font-size: 0.78rem; color: var(--gray); margin-top: 5px; }
+ 
+    /* Password strength */
+    .pw-strength { margin-top: 8px; }
+    .pw-bars { display: flex; gap: 4px; margin-bottom: 5px; }
+    .pw-bar {
+      height: 3px; flex: 1; border-radius: 2px;
+      background: var(--border); transition: background 0.3s;
+    }
+    .pw-bar.weak { background: #EF4444; }
+    .pw-bar.fair { background: #F59E0B; }
+    .pw-bar.strong { background: #10B981; }
+    .pw-label { font-size: 0.75rem; color: var(--gray); }
+    .pw-label.weak { color: #EF4444; }
+    .pw-label.fair { color: #F59E0B; }
+    .pw-label.strong { color: #10B981; }
+ 
+    /* Checkboxes */
+    .checkbox-group { display: flex; flex-direction: column; gap: 10px; }
+    .checkbox-item { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+    .checkbox-item input[type="checkbox"] { display: none; }
+    .checkbox-box {
+      width: 18px; height: 18px; border-radius: 5px;
+      border: 1.5px solid var(--border); background: var(--light);
+      flex-shrink: 0; margin-top: 1px; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .checkbox-item input[type="checkbox"]:checked ~ .checkbox-box {
+      background: var(--blue); border-color: var(--blue);
+    }
+    .checkbox-item input[type="checkbox"]:checked ~ .checkbox-box::after {
+      content: ''; display: block; width: 5px; height: 9px;
+      border: 2px solid white; border-top: none; border-left: none;
+      transform: rotate(45deg) translate(-1px, -1px);
+    }
+    .checkbox-label { font-size: 0.875rem; color: var(--gray); line-height: 1.5; }
+    .checkbox-label a { color: var(--blue); font-weight: 500; text-decoration: none; }
+    .checkbox-label a:hover { text-decoration: underline; }
+ 
+    /* Buttons */
+    .btn-row { display: flex; gap: 12px; margin-top: 6px; }
+    .btn-primary {
+      flex: 1; padding: 13px;
+      background: linear-gradient(135deg, #0E6A96, #2BB6F1);
+      color: white; border: none; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.97rem; font-weight: 600;
+      cursor: pointer; transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(43,182,241,0.32);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-primary:hover { opacity: 0.91; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(43,182,241,0.4); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+    .btn-primary svg { width: 17px; height: 17px; }
+    .btn-secondary {
+      padding: 13px 20px;
+      background: var(--light); color: var(--dark);
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.97rem; font-weight: 600;
+      cursor: pointer; transition: border-color 0.2s, color 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+    .btn-secondary svg { width: 17px; height: 17px; }
+    .spinner {
+      width: 17px; height: 17px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white; border-radius: 50%;
+      animation: spin 0.6s linear infinite; display: none;
+    }
+    .btn-primary.loading .btn-text { display: none; }
+    .btn-primary.loading .spinner { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+ 
+    /* Progress text */
+    .progress-text { font-size: 0.82rem; color: var(--gray); margin-top: 16px; text-align: center; }
+    .progress-text strong { color: var(--dark); }
+ 
+    /* Success screen */
+    .success-screen {
+      display: none; text-align: center; padding: 20px 0;
+      animation: slideUp 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .success-screen.show { display: block; }
+    .success-anim {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: linear-gradient(135deg, #0E6A96, #2BB6F1);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+      box-shadow: 0 12px 40px rgba(43,182,241,0.4);
+      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both 0.1s;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .success-anim svg { width: 44px; height: 44px; }
+    .success-screen h2 { font-size: 1.6rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+    .success-screen p { color: var(--gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 32px; max-width: 320px; margin-left: auto; margin-right: auto; }
+    .success-actions { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+    .btn-home {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 32px; width: 100%;
+      background: linear-gradient(135deg, #0E6A96, #2BB6F1);
+      color: white; border: none; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.97rem; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(43,182,241,0.3); transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-home:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-book {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 32px; width: 100%;
+      background: white; color: var(--dark);
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.97rem; font-weight: 600;
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-book:hover { border-color: var(--blue); color: var(--blue); }
+ 
+    /* Responsive */
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+      .left-panel { display: none; }
+      .right-panel { padding: 40px 32px; align-items: flex-start; padding-top: 48px; }
+      nav { padding: 0 20px; }
+    }
+ 
+    /* Phone */
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; height: 60px; }
+      .right-panel { padding: 32px 20px; }
+      .signup-card { max-width: 100%; }
+      .card-header h2 { font-size: 1.5rem; }
+      .card-header p { font-size: 0.88rem; }
+      .step-indicator { margin-bottom: 24px; }
+      .step-circle { width: 24px; height: 24px; font-size: 0.72rem; }
+      .step-label { font-size: 0.7rem; }
+      .step:not(:last-child)::after { top: 12px; }
+      label { font-size: 0.82rem; }
+      input[type="text"], input[type="email"], input[type="password"], input[type="tel"], select {
+        padding: 10px 12px 10px 38px; font-size: 0.9rem;
+      }
+      .btn-primary, .btn-secondary { padding: 12px; font-size: 0.9rem; }
+      .progress-text { font-size: 0.78rem; }
+      .success-screen h2 { font-size: 1.3rem; }
+      .nav-signin-link { font-size: 0.8rem; }
+    }
+ 
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+      .right-panel { padding: 24px 16px; }
+      .btn-row { gap: 8px; }
+      .checkbox-label { font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+       <a href="#" class="nav-logo">
+    <img src="AQUARIUSLEA LOGO.png" alt="AquariusLeo Cleaning Logo" style="height:38px;">
+  </a>
+    <div class="nav-right">
+      <a href="signin.html" class="nav-signin-link">Already have an account? <strong>Sign in</strong></a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="left-inner">
+        <div class="left-tag">Join Aquariuslea</div>
+        <h1>A cleaner home<br/><em>starts here.</em></h1>
+        <p>Create your free account in under 2 minutes and get access to easy booking, cleaning history, and member-only offers.</p>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Signing up was effortless. Within minutes I had booked my first clean — and the team was incredible. My home has never felt this fresh!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SM</div>
+            <div>
+              <div class="testimonial-name">Sarah M.</div>
+              <div class="testimonial-loc">Harare, ZW</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-num">50+</div>
+            <div class="stat-label">Happy clients</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">4.9★</div>
+            <div class="stat-label">Average rating</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">2+</div>
+            <div class="stat-label">Years serving</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="signup-card">
+
+        <!-- FORM VIEW -->
+        <div id="formView">
+          <div class="card-header">
+            <h2>Create your account</h2>
+            <p>Already registered? <a href="signin.html">Sign in instead</a></p>
+          </div>
+
+          <!-- Step indicator -->
+          <div class="step-indicator" id="stepIndicator">
+            <div class="step active" data-step="1">
+              <div class="step-circle">1</div>
+              <div class="step-label">Personal</div>
+            </div>
+            <div class="step" data-step="2">
+              <div class="step-circle">2</div>
+              <div class="step-label">Contact</div>
+            </div>
+            <div class="step" data-step="3">
+              <div class="step-circle">3</div>
+              <div class="step-label">Security</div>
+            </div>
+          </div>
+
+          <!-- STEP 1: Personal Info -->
+          <div class="form-step active" id="step1">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <div class="input-wrap">
+                  <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                  <input type="text" id="firstName" placeholder="Jane" autocomplete="given-name" />
+                </div>
+                <div class="error-msg" id="firstNameError">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  First name is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <div class="input-wrap">
+                  <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                  <input type="text" id="lastName" placeholder="Doe" autocomplete="family-name" />
+                </div>
+                <div class="error-msg" id="lastNameError">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  Last name is required.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="serviceType">What service are you interested in? <span class="optional">(optional)</span></label>
+              <div class="input-wrap select-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+                <select id="serviceType">
+                  <option value="">Select a service…</option>
+                  <option value="basic">Basic Clean</option>
+                  <option value="deep">Deep Clean</option>
+                  <option value="premium">Premium Clean</option>
+                  <option value="office">Office Cleaning</option>
+                  <option value="move">Move In / Move Out</option>
+                </select>
+                <span class="select-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg></span>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="btn-primary" id="step1Next" type="button">
+                <span class="btn-text">Continue</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div class="spinner"></div>
+              </button>
+            </div>
+            <p class="progress-text">Step <strong>1</strong> of 3</p>
+          </div>
+
+          <!-- STEP 2: Contact Info -->
+          <div class="form-step" id="step2">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg></span>
+                <input type="email" id="email" placeholder="jane@example.com" autocomplete="email" />
+              </div>
+              <div class="error-msg" id="emailError">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Please enter a valid email address.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="optional">(optional)</span></label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg></span>
+                <input type="tel" id="phone" placeholder="+27 xx xxx xxxx" autocomplete="tel" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="city">City / Area</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                <input type="text" id="city" placeholder="e.g. Johannesburg" autocomplete="address-level2" />
+              </div>
+              <div class="error-msg" id="cityError">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Please enter your city or area.
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="btn-secondary" id="step2Back" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                Back
+              </button>
+              <button class="btn-primary" id="step2Next" type="button">
+                <span class="btn-text">Continue</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div class="spinner"></div>
+              </button>
+            </div>
+            <p class="progress-text">Step <strong>2</strong> of 3</p>
+          </div>
+
+          <!-- STEP 3: Password + Agree -->
+          <div class="form-step" id="step3">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
+                <input type="password" id="password" placeholder="Min. 8 characters" autocomplete="new-password" />
+                <button type="button" class="toggle-pw" id="togglePw1">
+                  <svg id="eye1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="pw-strength" id="pwStrength" style="display:none;">
+                <div class="pw-bars">
+                  <div class="pw-bar" id="bar1"></div>
+                  <div class="pw-bar" id="bar2"></div>
+                  <div class="pw-bar" id="bar3"></div>
+                  <div class="pw-bar" id="bar4"></div>
+                </div>
+                <div class="pw-label" id="pwLabel">Too short</div>
+              </div>
+              <div class="error-msg" id="passwordError">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Password must be at least 8 characters.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <div class="input-wrap">
+                <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
+                <input type="password" id="confirmPassword" placeholder="Repeat your password" autocomplete="new-password" />
+                <button type="button" class="toggle-pw" id="togglePw2">
+                  <svg id="eye2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="error-msg" id="confirmError">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Passwords do not match.
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom:22px;">
+              <div class="checkbox-group">
+                <label class="checkbox-item" id="termsLabel">
+                  <input type="checkbox" id="terms" />
+                  <span class="checkbox-box"></span>
+                  <span class="checkbox-label">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" id="marketing" />
+                  <span class="checkbox-box"></span>
+                  <span class="checkbox-label">Send me cleaning tips and exclusive offers via email</span>
+                </label>
+              </div>
+              <div class="error-msg" id="termsError" style="margin-top:8px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                You must accept the terms to continue.
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="btn-secondary" id="step3Back" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                Back
+              </button>
+              <button class="btn-primary" id="submitBtn" type="button">
+                <span class="btn-text">Create Account</span>
+                <div class="spinner"></div>
+              </button>
+            </div>
+            <p class="progress-text">Step <strong>3</strong> of 3</p>
+          </div>
+        </div>
+
+        <!-- SUCCESS VIEW -->
+        <div class="success-screen" id="successView">
+          <div class="success-anim">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h2>You're all set! 🎉</h2>
+          <p>Your account has been created. Welcome to the Aquariuslea family — a sparkling clean home is just a booking away.</p>
+          <div class="success-actions">
+            <a href="book.html" class="btn-home">Book Your First Clean</a>
+            <a href="index.html" class="btn-book">Return to Homepage</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    function setStep(n) {
+      // Update form steps
+      document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step' + n).classList.add('active');
+
+      // Update step indicator
+      document.querySelectorAll('.step').forEach(s => {
+        const sn = parseInt(s.dataset.step);
+        s.classList.remove('active', 'done');
+        if (sn === n) s.classList.add('active');
+        if (sn < n) s.classList.add('done');
+        // Checkmark for done steps
+        const circle = s.querySelector('.step-circle');
+        if (sn < n) circle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" width="12" height="12"><polyline points="20 6 9 17 4 12"/></svg>';
+        else circle.textContent = sn;
+      });
+
+      currentStep = n;
+    }
+
+    function showError(id, show = true) {
+      const el = document.getElementById(id);
+      if (el) show ? el.classList.add('show') : el.classList.remove('show');
+    }
+    function setInputError(id, isError) {
+      const el = document.getElementById(id);
+      if (el) isError ? el.classList.add('error') : el.classList.remove('error');
+    }
+    function clearErrors(...ids) {
+      ids.forEach(id => { showError(id, false); setInputError(id, false); });
+    }
+
+    // Step 1 validation
+    document.getElementById('step1Next').addEventListener('click', () => {
+      const fn = document.getElementById('firstName').value.trim();
+      const ln = document.getElementById('lastName').value.trim();
+      let valid = true;
+      clearErrors('firstName', 'lastName');
+      if (!fn) { showError('firstNameError'); setInputError('firstName', true); valid = false; }
+      if (!ln) { showError('lastNameError'); setInputError('lastName', true); valid = false; }
+      if (valid) setStep(2);
+    });
+
+    // Step 2 validation
+    document.getElementById('step2Next').addEventListener('click', () => {
+      const email = document.getElementById('email').value.trim();
+      const city  = document.getElementById('city').value.trim();
+      let valid = true;
+      clearErrors('email', 'city');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('emailError'); setInputError('email', true); valid = false;
+      }
+      if (!city) { showError('cityError'); setInputError('city', true); valid = false; }
+      if (valid) setStep(3);
+    });
+
+    // Back buttons
+    document.getElementById('step2Back').addEventListener('click', () => setStep(1));
+    document.getElementById('step3Back').addEventListener('click', () => setStep(2));
+
+    // Password strength
+    const pwInput = document.getElementById('password');
+    pwInput.addEventListener('input', () => {
+      const pw = pwInput.value;
+      const strength = document.getElementById('pwStrength');
+      const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3'), document.getElementById('bar4')];
+      const label = document.getElementById('pwLabel');
+      clearErrors('password'); setInputError('password', false);
+
+      if (!pw) { strength.style.display = 'none'; return; }
+      strength.style.display = 'block';
+
+      let score = 0;
+      if (pw.length >= 8) score++;
+      if (pw.length >= 12) score++;
+      if (/[A-Z]/.test(pw) && /[0-9]/.test(pw)) score++;
+      if (/[^A-Za-z0-9]/.test(pw)) score++;
+
+      bars.forEach((b, i) => {
+        b.className = 'pw-bar';
+        if (i < score) {
+          if (score === 1) b.classList.add('weak');
+          else if (score <= 2) b.classList.add('fair');
+          else b.classList.add('strong');
+        }
+      });
+
+      label.className = 'pw-label';
+      if (score === 1) { label.textContent = 'Weak'; label.classList.add('weak'); }
+      else if (score === 2) { label.textContent = 'Fair'; label.classList.add('fair'); }
+      else if (score >= 3) { label.textContent = 'Strong'; label.classList.add('strong'); }
+    });
+
+    // Password toggles
+    function makeToggle(btnId, inputId, iconId) {
+      document.getElementById(btnId).addEventListener('click', () => {
+        const inp = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        const show = inp.type === 'password';
+        inp.type = show ? 'text' : 'password';
+        icon.innerHTML = show
+          ? '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>'
+          : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+      });
+    }
+    makeToggle('togglePw1', 'password', 'eye1');
+    makeToggle('togglePw2', 'confirmPassword', 'eye2');
+
+    // Clear errors on input
+    ['firstName','lastName','email','city','password','confirmPassword'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', () => { el.classList.remove('error'); showError(id + 'Error', false); });
+    });
+
+    // Final submit
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const pw  = document.getElementById('password').value;
+      const cpw = document.getElementById('confirmPassword').value;
+      const terms = document.getElementById('terms').checked;
+      let valid = true;
+
+      clearErrors('password', 'confirmPassword');
+      showError('termsError', false);
+
+      if (pw.length < 8) { showError('passwordError'); setInputError('password', true); valid = false; }
+      if (pw !== cpw)    { showError('confirmError'); setInputError('confirmPassword', true); valid = false; }
+      if (!terms)        { showError('termsError'); valid = false; }
+      if (!valid) return;
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.classList.add('loading');
+
+      setTimeout(() => {
+        document.getElementById('formView').style.display = 'none';
+        document.getElementById('successView').classList.add('show');
+      }, 1400);
+    });
+  </script>
+
+</body>
+</html>

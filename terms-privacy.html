@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms & Conditions — AquariusLeo Cleaning Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #2BB6F1;
+      --blue-dark: #0E6A96;
+      --blue-light: #E8F7FD;
+      --dark: #111827;
+      --body: #374151;
+      --gray: #6B7280;
+      --light: #F9FAFB;
+      --border: #E5E7EB;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--body);
+      line-height: 1.75;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 12px rgba(0,0,0,0.04);
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 38px; width: auto; }
+    .nav-logo-text { font-weight: 700; font-size: 1.1rem; color: var(--dark); }
+    .nav-logo-text span { color: var(--blue); }
+    .nav-back {
+      font-size: 0.875rem; font-weight: 500; color: var(--gray);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--blue); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #071e2b 0%, #0E6A96 50%, #2BB6F1 100%);
+      padding: 80px 48px 90px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px; border-radius: 50%;
+      border: 90px solid rgba(255,255,255,0.04);
+      top: -180px; right: -130px; pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.9);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 7px 18px; border-radius: 100px;
+      margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(8px);
+    }
+    .hero-eyebrow::before { content: '§'; font-size: 0.85rem; }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      color: white; line-height: 1.15; margin-bottom: 18px;
+    }
+    .hero h1 em { font-style: italic; opacity: 0.8; }
+    .hero p {
+      color: rgba(255,255,255,0.75); font-size: 1rem;
+      line-height: 1.65; max-width: 500px; margin: 0 auto 28px;
+    }
+    .hero-meta {
+      display: inline-flex; align-items: center; gap: 20px;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .meta-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7);
+      font-size: 0.8rem; padding: 5px 14px; border-radius: 8px;
+    }
+    .meta-pill svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* ── PAGE LAYOUT ── */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 48px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* ── STICKY TOC ── */
+    .toc-wrap {
+      position: sticky;
+      top: 88px;
+    }
+    .toc-box {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+    .toc-heading {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--gray); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .toc-heading svg { width: 13px; height: 13px; }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 1px; }
+    .toc-list a {
+      display: flex; align-items: center; gap: 9px;
+      padding: 7px 10px; border-radius: 8px;
+      font-size: 0.82rem; font-weight: 500; color: var(--gray);
+      text-decoration: none; transition: background 0.15s, color 0.15s;
+      line-height: 1.3;
+    }
+    .toc-list a:hover { background: var(--border); color: var(--dark); }
+    .toc-list a.active { background: var(--blue-light); color: var(--blue); font-weight: 600; }
+    .toc-list a .toc-num {
+      width: 20px; height: 20px; border-radius: 5px; flex-shrink: 0;
+      background: var(--border); color: var(--gray);
+      font-size: 0.68rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, color 0.15s;
+    }
+    .toc-list a.active .toc-num { background: var(--blue); color: white; }
+
+    .accept-box {
+      background: linear-gradient(135deg, #0E6A96, #2BB6F1);
+      border-radius: 14px; padding: 18px 20px; text-align: center;
+    }
+    .accept-box p { color: rgba(255,255,255,0.85); font-size: 0.8rem; line-height: 1.5; margin-bottom: 12px; }
+    .accept-box a {
+      display: block; background: white; color: var(--blue-dark);
+      border-radius: 8px; padding: 9px 16px;
+      font-size: 0.82rem; font-weight: 700; text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .accept-box a:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── CONTENT ── */
+    .content { min-width: 0; }
+
+    .doc-section {
+      margin-bottom: 52px;
+      padding-bottom: 52px;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp 0.4s ease both;
+    }
+    .doc-section:last-of-type { border-bottom: none; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 7px;
+      margin-bottom: 10px;
+    }
+    .section-num-badge {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: var(--blue-light); color: var(--blue);
+      font-size: 0.75rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--blue);
+    }
+
+    .doc-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: var(--dark);
+      margin-bottom: 16px; line-height: 1.25;
+    }
+    .doc-section p {
+      font-size: 0.95rem; color: var(--body);
+      margin-bottom: 14px; line-height: 1.75;
+    }
+    .doc-section p:last-child { margin-bottom: 0; }
+
+    /* Callouts */
+    .callout {
+      display: flex; gap: 14px; align-items: flex-start;
+      border-radius: 12px; padding: 16px 18px;
+      margin: 18px 0;
+    }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; }
+    .callout p { margin: 0; font-size: 0.9rem; line-height: 1.6; }
+    .callout.blue  { background: var(--blue-light); border: 1px solid rgba(43,182,241,0.2); color: var(--blue-dark); }
+    .callout.blue svg { color: var(--blue); }
+    .callout.amber { background: #FFFBEB; border: 1px solid rgba(245,158,11,0.25); color: #92400E; }
+    .callout.amber svg { color: #D97706; }
+    .callout.green { background: #ECFDF5; border: 1px solid rgba(16,185,129,0.25); color: #065F46; }
+    .callout.green svg { color: #10B981; }
+    .callout.red   { background: #FEF2F2; border: 1px solid rgba(239,68,68,0.2); color: #991B1B; }
+    .callout.red svg { color: #EF4444; }
+
+    /* Bullet lists */
+    .doc-list {
+      list-style: none; display: flex; flex-direction: column; gap: 9px;
+      margin: 14px 0 18px;
+    }
+    .doc-list li {
+      display: flex; gap: 11px; align-items: flex-start;
+      font-size: 0.94rem; color: var(--body); line-height: 1.6;
+    }
+    .doc-list li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--blue); flex-shrink: 0; margin-top: 9px;
+    }
+
+    /* Table */
+    .data-table {
+      width: 100%; border-collapse: collapse;
+      margin: 18px 0; font-size: 0.88rem;
+      border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    }
+    .data-table th {
+      background: var(--light); padding: 11px 16px; text-align: left;
+      font-size: 0.76rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--gray);
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table td {
+      padding: 12px 16px; color: var(--body);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top; line-height: 1.55;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: var(--light); }
+
+    /* Inline definition */
+    .definition {
+      background: var(--light); border-left: 3px solid var(--blue);
+      border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 14px 0;
+      font-size: 0.9rem; color: var(--body);
+    }
+    .definition strong { color: var(--dark); display: block; margin-bottom: 4px; }
+
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      background: linear-gradient(135deg, #071e2b 0%, #0E6A96 50%, #2BB6F1 100%);
+      border-radius: 24px; padding: 48px 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 28px; flex-wrap: wrap; margin-top: 60px;
+      position: relative; overflow: hidden;
+    }
+    .bottom-cta::before {
+      content: '';
+      position: absolute; width: 300px; height: 300px; border-radius: 50%;
+      border: 60px solid rgba(255,255,255,0.05);
+      top: -100px; right: -80px; pointer-events: none;
+    }
+    .cta-text { position: relative; z-index: 1; }
+    .cta-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: white; margin-bottom: 8px;
+    }
+    .cta-text p { color: rgba(255,255,255,0.75); font-size: 0.95rem; }
+    .cta-text p a { color: white; font-weight: 600; text-decoration: none; }
+    .cta-text p a:hover { text-decoration: underline; }
+    .cta-actions { display: flex; gap: 10px; flex-wrap: wrap; position: relative; z-index: 1; }
+    .btn-white {
+      padding: 12px 26px; background: white; color: var(--blue-dark);
+      border: none; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
+      text-decoration: none; cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s; white-space: nowrap;
+    }
+    .btn-white:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-ghost {
+      padding: 12px 26px; background: rgba(255,255,255,0.12); color: white;
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
+      text-decoration: none; transition: background 0.2s; white-space: nowrap;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.22); }
+
+    /* ── RESPONSIVE ── */
+    /* Tablet (max 1024px) */
+    @media (max-width: 1024px) {
+      .page-wrap { padding: 52px 36px; gap: 44px; }
+      .bottom-cta { padding: 36px 40px; }
+    }
+ 
+    /* Small tablet / large phone (max 860px) */
+    @media (max-width: 860px) {
+      .page-wrap { grid-template-columns: 1fr; padding: 40px 24px; gap: 0; }
+      .toc-wrap { display: none; }
+      nav { padding: 0 20px; }
+      .hero { padding: 52px 24px 60px; }
+      .hero h1 { font-size: clamp(1.8rem, 6vw, 2.6rem); }
+      .hero-meta { gap: 10px; }
+      .bottom-cta { padding: 28px 24px; flex-direction: column; text-align: center; }
+      .cta-actions { justify-content: center; }
+      .doc-section h2 { font-size: 1.3rem; }
+    }
+ 
+    /* Phone (max 600px) */
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; height: 60px; }
+      .hero { padding: 40px 16px 48px; }
+      .hero-eyebrow { font-size: 0.7rem; padding: 6px 14px; }
+      .hero h1 { font-size: 1.75rem; margin-bottom: 14px; }
+      .hero p { font-size: 0.92rem; }
+      .hero-meta { flex-direction: column; gap: 8px; align-items: center; }
+      .meta-pill { font-size: 0.75rem; }
+      .page-wrap { padding: 32px 16px; }
+      .doc-section { margin-bottom: 36px; padding-bottom: 36px; }
+      .doc-section h2 { font-size: 1.2rem; }
+      .doc-section p { font-size: 0.9rem; }
+      .definition { padding: 12px 14px; font-size: 0.86rem; }
+      .callout { padding: 14px 16px; gap: 10px; }
+      .callout p { font-size: 0.86rem; }
+      .data-table { font-size: 0.8rem; }
+      .data-table th, .data-table td { padding: 10px 12px; }
+      .bottom-cta { padding: 24px 18px; border-radius: 16px; margin-top: 40px; }
+      .cta-text h3 { font-size: 1.2rem; }
+      .btn-white, .btn-ghost { width: 100%; text-align: center; justify-content: center; padding: 11px 20px; }
+      .cta-actions { flex-direction: column; width: 100%; }
+      .nav-back span { display: none; }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- NAV -->
+  <nav>
+    <a href="AquariusLeo Cleaning.html" class="nav-logo">
+      <img src="AQUARIUSLEA LOGO.png" alt="AquariusLeo Cleaning Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+      <span class="nav-logo-text" style="display:none;">Aquarius<span>Leo</span></span>
+    </a>
+    <a href="AquariusLeo Cleaning.html" class="nav-back">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Home
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Legal Agreement</div>
+      <h1>Terms &amp;<br/><em>Conditions</em></h1>
+      <p>Please read these terms carefully before using our services. By booking with us, you agree to be bound by the following conditions.</p>
+      <div class="hero-meta">
+        <span class="meta-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Last updated: March 4, 2026
+        </span>
+        <span class="meta-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+          Governed by Zimbabwean Law
+        </span>
+        <span class="meta-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Cyber &amp; Data Protection Act
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE BODY -->
+  <div class="page-wrap">
+
+    <!-- SIDEBAR TOC -->
+    <aside class="toc-wrap">
+      <div class="toc-box">
+        <div class="toc-heading">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Contents
+        </div>
+        <ul class="toc-list" id="tocList">
+          <li><a href="#s1" class="active"><span class="toc-num">1</span> Introduction</a></li>
+          <li><a href="#s2"><span class="toc-num">2</span> Definitions</a></li>
+          <li><a href="#s3"><span class="toc-num">3</span> Services</a></li>
+          <li><a href="#s4"><span class="toc-num">4</span> Bookings</a></li>
+          <li><a href="#s5"><span class="toc-num">5</span> Pricing &amp; Payment</a></li>
+          <li><a href="#s6"><span class="toc-num">6</span> Cancellations</a></li>
+          <li><a href="#s7"><span class="toc-num">7</span> Client Obligations</a></li>
+          <li><a href="#s8"><span class="toc-num">8</span> Our Obligations</a></li>
+          <li><a href="#s9"><span class="toc-num">9</span> Liability</a></li>
+          <li><a href="#s10"><span class="toc-num">10</span> Prohibited Use</a></li>
+          <li><a href="#s11"><span class="toc-num">11</span> Intellectual Property</a></li>
+          <li><a href="#s12"><span class="toc-num">12</span> Data Protection</a></li>
+          <li><a href="#s13"><span class="toc-num">13</span> Amendments</a></li>
+          <li><a href="#s14"><span class="toc-num">14</span> Governing Law</a></li>
+          <li><a href="#s15"><span class="toc-num">15</span> Contact</a></li>
+        </ul>
+      </div>
+      <div class="accept-box">
+        <p>Questions about these terms? Our team is here to help.</p>
+        <a href="mailto:aquariusLtd@gmail.com">Email Us</a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+      <!-- 1. Introduction -->
+      <section class="doc-section" id="s1">
+        <div class="section-tag">
+          <div class="section-num-badge">1</div>
+          <span class="section-label">Introduction</span>
+        </div>
+        <h2>Introduction &amp; Acceptance</h2>
+        <p>Welcome to AquariusLeo Cleaning Services ("AquariusLeo", "we", "us", "our"). These Terms and Conditions ("Terms") govern your access to and use of our cleaning services, website, booking platform, and any associated applications (collectively, the "Services").</p>
+        <p>By booking, accessing, or using our Services in any way, you ("Client", "you", "your") confirm that you have read, understood, and agree to be legally bound by these Terms. If you do not agree, you must not use our Services.</p>
+        <div class="callout blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p>These Terms apply to all clients including walk-in customers, online booking users, corporate account holders, and anyone who engages AquariusLeo for any cleaning-related service.</p>
+        </div>
+      </section>
+
+      <!-- 2. Definitions -->
+      <section class="doc-section" id="s2">
+        <div class="section-tag">
+          <div class="section-num-badge">2</div>
+          <span class="section-label">Definitions</span>
+        </div>
+        <h2>Definitions</h2>
+        <p>For clarity, the following terms are used throughout this agreement:</p>
+        <div class="definition">
+          <strong>"Services"</strong>
+          All professional cleaning services provided by AquariusLeo, including residential, commercial, deep cleaning, move-in/out, and any related offerings.
+        </div>
+        <div class="definition">
+          <strong>"Booking"</strong>
+          A confirmed reservation of cleaning services made by the Client via the website, phone, email, or any other approved channel.
+        </div>
+        <div class="definition">
+          <strong>"Property"</strong>
+          The premises — residential or commercial — at which Services are to be performed.
+        </div>
+        <div class="definition">
+          <strong>"Cleaning Team"</strong>
+          AquariusLeo's employed or contracted staff assigned to carry out the Services at the Client's Property.
+        </div>
+        <div class="definition">
+          <strong>"Service Fee"</strong>
+          The agreed price for the Services as quoted at the time of Booking.
+        </div>
+      </section>
+
+      <!-- 3. Services -->
+      <section class="doc-section" id="s3">
+        <div class="section-tag">
+          <div class="section-num-badge">3</div>
+          <span class="section-label">Services</span>
+        </div>
+        <h2>Nature of Services</h2>
+        <p>AquariusLeo offers professional cleaning services including, but not limited to:</p>
+        <ul class="doc-list">
+          <li>Standard residential and home cleaning</li>
+          <li>Deep cleaning and sanitisation</li>
+          <li>Premium cleaning packages</li>
+          <li>Move-in and move-out cleaning</li>
+          <li>Office and commercial cleaning</li>
+          <li>Post-construction cleaning</li>
+          <li>Carpet, upholstery, and window cleaning</li>
+          <li>Pest control services</li>
+        </ul>
+        <p>All services are subject to availability based on staff scheduling and geographic service area. We reserve the right to decline, modify, or discontinue any service at our reasonable discretion, with notice provided where practicable.</p>
+        <div class="callout green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <p>All cleaning products used are eco-friendly, pet-safe, and child-safe by default. Specialist or client-specified products can be arranged at the time of booking.</p>
+        </div>
+      </section>
+
+      <!-- 4. Bookings -->
+      <section class="doc-section" id="s4">
+        <div class="section-tag">
+          <div class="section-num-badge">4</div>
+          <span class="section-label">Bookings</span>
+        </div>
+        <h2>Booking Process &amp; Confirmation</h2>
+        <p>A booking is only considered confirmed once the Client receives a written confirmation from AquariusLeo via email or SMS. Verbal or unconfirmed arrangements do not constitute a binding booking.</p>
+        <ul class="doc-list">
+          <li>Bookings may be made via our website, email, phone, or any approved channel.</li>
+          <li>The Client must provide accurate property details, access instructions, and any special requirements at the time of booking.</li>
+          <li>AquariusLeo reserves the right to refuse or cancel any booking at its discretion, with any prepayment refunded in full.</li>
+          <li>Recurring bookings (weekly, fortnightly, monthly) are subject to these Terms for each individual service visit.</li>
+        </ul>
+        <div class="callout amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p>Providing inaccurate property information (e.g., under-reporting size or condition) may result in additional charges or rescheduling of service.</p>
+        </div>
+      </section>
+
+      <!-- 5. Pricing & Payment -->
+      <section class="doc-section" id="s5">
+        <div class="section-tag">
+          <div class="section-num-badge">5</div>
+          <span class="section-label">Pricing &amp; Payment</span>
+        </div>
+        <h2>Pricing, Fees &amp; Payment Terms</h2>
+        <p>Prices shown on our website are estimates only. The final Service Fee may vary depending on property size, actual condition, scope of work, and time required. A confirmed quote will be provided prior to service commencement.</p>
+        <ul class="doc-list">
+          <li>All prices are quoted in United States Dollars (USD) or Zimbabwe Gold (ZiG).</li>
+          <li>Payment methods accepted: major credit/debit cards, EFT, and cash (on-site only).</li>
+          <li>Payment is due at the time of booking confirmation or upon service completion, as agreed.</li>
+          <li>Corporate or bulk booking clients may apply for a monthly invoicing arrangement subject to approval.</li>
+        </ul>
+        <div class="callout amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p>Failed or reversed payments may incur an administration fee. Persistent non-payment may result in account suspension and referral for debt collection.</p>
+        </div>
+      </section>
+
+      <!-- 6. Cancellations -->
+      <section class="doc-section" id="s6">
+        <div class="section-tag">
+          <div class="section-num-badge">6</div>
+          <span class="section-label">Cancellations</span>
+        </div>
+        <h2>Cancellations &amp; Rescheduling Policy</h2>
+        <p>We understand circumstances change. The following cancellation fees apply:</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Notice Period</th>
+              <th>Cancellation Fee</th>
+              <th>Refund</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>More than 48 hours before service</td>
+              <td>None</td>
+              <td>Full refund if prepaid</td>
+            </tr>
+            <tr>
+              <td>24 – 48 hours before service</td>
+              <td>25% of Service Fee</td>
+              <td>75% if prepaid</td>
+            </tr>
+            <tr>
+              <td>Less than 24 hours before service</td>
+              <td>50% of Service Fee</td>
+              <td>50% if prepaid</td>
+            </tr>
+            <tr>
+              <td>No-show or same-day cancellation</td>
+              <td>100% of Service Fee</td>
+              <td>No refund</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Rescheduling made more than 24 hours in advance is accommodated free of charge, subject to availability. Rescheduling requests within 24 hours are treated as cancellations.</p>
+        <p>AquariusLeo reserves the right to cancel or reschedule any booking due to unforeseen circumstances (e.g., staff illness, extreme weather). In such cases, a full refund or priority rescheduling will be offered at no extra charge.</p>
+      </section>
+
+      <!-- 7. Client Obligations -->
+      <section class="doc-section" id="s7">
+        <div class="section-tag">
+          <div class="section-num-badge">7</div>
+          <span class="section-label">Client Obligations</span>
+        </div>
+        <h2>Client Obligations</h2>
+        <p>To ensure the safety of our team and the quality of service, the Client agrees to:</p>
+        <ul class="doc-list">
+          <li>Provide accurate and complete property details at the time of booking, including size, access instructions, and any hazards.</li>
+          <li>Ensure safe and unobstructed access to the Property at the agreed service time.</li>
+          <li>Secure or remove all valuables, fragile items, and pets prior to the Cleaning Team's arrival.</li>
+          <li>Disclose any known allergens, sensitivities, or hazardous materials on the premises before service.</li>
+          <li>Not request the Cleaning Team to perform tasks outside the agreed service scope without prior arrangement and additional payment.</li>
+          <li>Treat all AquariusLeo staff with dignity, respect, and professional courtesy at all times.</li>
+          <li>Ensure the Property is in a condition that allows safe service delivery (e.g., not infested beyond normal cleaning conditions).</li>
+        </ul>
+        <div class="callout red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <p>AquariusLeo reserves the right to cease service immediately and charge the full Service Fee if the Cleaning Team encounters unsafe working conditions, verbal or physical abuse, or undisclosed hazards at the Property.</p>
+        </div>
+      </section>
+
+      <!-- 8. Our Obligations -->
+      <section class="doc-section" id="s8">
+        <div class="section-tag">
+          <div class="section-num-badge">8</div>
+          <span class="section-label">Our Obligations</span>
+        </div>
+        <h2>Our Obligations to You</h2>
+        <p>AquariusLeo commits to the following standards of service:</p>
+        <ul class="doc-list">
+          <li>Provide trained, vetted, and background-checked cleaning professionals.</li>
+          <li>Arrive within a 30-minute window of the agreed service time, or notify the Client promptly of any delay.</li>
+          <li>Use safe, eco-friendly, and effective cleaning products unless otherwise instructed.</li>
+          <li>Treat the Client's property and belongings with care and respect.</li>
+          <li>Address any reasonable complaints or service concerns within 48 hours of notification.</li>
+          <li>Carry adequate public liability insurance for negligence during service delivery.</li>
+        </ul>
+        <div class="callout green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <p>If you are unsatisfied with any aspect of your clean, contact us within 24 hours. We offer a re-clean guarantee — we'll return and make it right at no additional cost.</p>
+        </div>
+      </section>
+
+      <!-- 9. Liability -->
+      <section class="doc-section" id="s9">
+        <div class="section-tag">
+          <div class="section-num-badge">9</div>
+          <span class="section-label">Liability</span>
+        </div>
+        <h2>Limitation of Liability</h2>
+        <p>AquariusLeo takes every precaution to provide professional, careful, and thorough service. However, to the fullest extent permitted under Zimbabwean law, the following limitations apply:</p>
+        <ul class="doc-list">
+          <li>We are not liable for damage to property or items that were pre-existing, undisclosed, or not reasonably foreseeable.</li>
+          <li>Our total liability for any single claim shall not exceed the value of the Service Fee paid for the affected service.</li>
+          <li>We are not liable for indirect, consequential, incidental, or special losses of any kind.</li>
+          <li>Damage claims must be reported within <strong>24 hours</strong> of service completion, with photographic evidence where possible.</li>
+          <li>We are not liable for loss or damage caused by the Client's failure to fulfil their obligations under Section 7.</li>
+        </ul>
+        <div class="callout blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p>AquariusLeo carries public liability insurance covering incidents of negligence by our staff during service delivery. Claims outside this scope are the Client's responsibility.</p>
+        </div>
+      </section>
+
+      <!-- 10. Prohibited Use -->
+      <section class="doc-section" id="s10">
+        <div class="section-tag">
+          <div class="section-num-badge">10</div>
+          <span class="section-label">Prohibited Use</span>
+        </div>
+        <h2>Prohibited Conduct</h2>
+        <p>You agree not to use our Services or platform in any way that:</p>
+        <ul class="doc-list">
+          <li>Violates any applicable Zimbabwean law or regulation.</li>
+          <li>Involves fraudulent, misleading, or deceptive conduct (e.g., false booking information).</li>
+          <li>Attempts to solicit AquariusLeo staff to work privately outside of AquariusLeo's engagement, for a period of 12 months after service.</li>
+          <li>Involves harassment, abuse, intimidation, or threats toward our staff or other clients.</li>
+          <li>Involves the unlawful recording of AquariusLeo staff without consent.</li>
+          <li>Disrupts or interferes with our website, booking system, or IT infrastructure.</li>
+        </ul>
+        <div class="callout red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p>Violations of this section may result in immediate account termination, withholding of services, and where applicable, civil or criminal action under Zimbabwean law.</p>
+        </div>
+      </section>
+
+      <!-- 11. Intellectual Property -->
+      <section class="doc-section" id="s11">
+        <div class="section-tag">
+          <div class="section-num-badge">11</div>
+          <span class="section-label">Intellectual Property</span>
+        </div>
+        <h2>Intellectual Property Rights</h2>
+        <p>All content on our website and platform — including but not limited to the AquariusLeo name, logo, trademarks, photographs, text, service descriptions, graphics, and software — is the exclusive intellectual property of AquariusLeo Cleaning Services.</p>
+        <p>You may not copy, reproduce, distribute, publish, modify, transmit, or create derivative works from any of our intellectual property without prior written permission. Unauthorised use may constitute an infringement under Zimbabwean intellectual property law and will be pursued accordingly.</p>
+      </section>
+
+      <!-- 12. Data Protection -->
+      <section class="doc-section" id="s12">
+        <div class="section-tag">
+          <div class="section-num-badge">12</div>
+          <span class="section-label">Data Protection</span>
+        </div>
+        <h2>Data Protection &amp; Privacy</h2>
+        <p>AquariusLeo collects and processes your personal information in accordance with Zimbabwe's <strong>Cyber and Data Protection Act [Chapter 12:07]</strong> and the relevant statutory instruments, including SI 155 of 2024.</p>
+        <ul class="doc-list">
+          <li>Personal data is used only for the purposes of delivering, managing, and improving our Services.</li>
+          <li>We do not sell or share your personal information with third parties for marketing purposes without your explicit consent.</li>
+          <li>You have the right to access, correct, or request deletion of your personal data at any time.</li>
+          <li>Complaints regarding data handling may be lodged with <strong>POTRAZ</strong>, Zimbabwe's designated Data Protection Authority, at <a href="https://www.potraz.gov.zw" target="_blank" rel="noopener" style="color:var(--blue);font-weight:500;">potraz.gov.zw</a>.</li>
+        </ul>
+        <p>For full details on how we handle your data, please review our <a href="terms-privacy.html" style="color:var(--blue);font-weight:500;">Privacy Policy</a>.</p>
+      </section>
+
+      <!-- 13. Amendments -->
+      <section class="doc-section" id="s13">
+        <div class="section-tag">
+          <div class="section-num-badge">13</div>
+          <span class="section-label">Amendments</span>
+        </div>
+        <h2>Amendments to These Terms</h2>
+        <p>AquariusLeo reserves the right to update, modify, or replace these Terms at any time. Changes will be effective upon publication to our website. Where changes are material, we will endeavour to notify registered clients by email with at least 7 days' notice.</p>
+        <p>Your continued use of our Services after changes are published constitutes your acceptance of the revised Terms. We recommend reviewing these Terms periodically to stay informed of any updates.</p>
+        <div class="callout blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p>The date at the top of this page reflects when these Terms were last updated. Archived versions are available upon request.</p>
+        </div>
+      </section>
+
+      <!-- 14. Governing Law -->
+      <section class="doc-section" id="s14">
+        <div class="section-tag">
+          <div class="section-num-badge">14</div>
+          <span class="section-label">Governing Law</span>
+        </div>
+        <h2>Governing Law &amp; Jurisdiction</h2>
+        <p>These Terms and Conditions are governed by and construed in accordance with the laws of the <strong>Republic of Zimbabwe</strong>. Any disputes arising from or in connection with these Terms shall be subject to the exclusive jurisdiction of the competent courts of Zimbabwe.</p>
+        <p>Where applicable, the following legislation takes precedence:</p>
+        <ul class="doc-list">
+          <li>Consumer Contracts Act [Chapter 8:03]</li>
+          <li>Cyber and Data Protection Act [Chapter 12:07]</li>
+          <li>Postal and Telecommunications Act [Chapter 12:05]</li>
+          <li>Arbitration Act [Chapter 7:15] (for commercial disputes, if agreed)</li>
+        </ul>
+        <p>If any provision of these Terms is found to be unenforceable under Zimbabwean law, the remaining provisions shall continue in full force and effect.</p>
+      </section>
+
+      <!-- 15. Contact -->
+      <section class="doc-section" id="s15">
+        <div class="section-tag">
+          <div class="section-num-badge">15</div>
+          <span class="section-label">Contact</span>
+        </div>
+        <h2>Contact Information</h2>
+        <p>If you have any questions, concerns, or disputes regarding these Terms and Conditions, please contact us:</p>
+        <ul class="doc-list">
+          <li><strong>Email:</strong> <a href="mailto:aquariusLtd@gmail.com" style="color:var(--blue);">aquariusLtd@gmail.com</a></li>
+          <li><strong>Alternate Email:</strong> <a href="mailto:furyfamily04@gmail.com" style="color:var(--blue);">furyfamily04@gmail.com</a></li>
+          <li><strong>Operating Hours:</strong> Monday – Friday, 8:00 AM – 6:00 PM CAT</li>
+          <li><strong>Saturday – Sunday:</strong> 9:00 AM – 4:00 PM CAT</li>
+        </ul>
+        <p>We aim to respond to all formal queries within <strong>3 business days</strong>.</p>
+      </section>
+
+      <!-- BOTTOM CTA -->
+      <div class="bottom-cta">
+        <div class="cta-text">
+          <h3>Questions about our Terms?</h3>
+          <p>We're here to help. Reach us at <a href="mailto:aquariusLtd@gmail.com">aquariusLtd@gmail.com</a> or use our contact form.</p>
+        </div>
+        <div class="cta-actions">
+          <a href="mailto:aquariusLtd@gmail.com" class="btn-white">Email Us</a>
+          <a href="AquariusLeo Cleaning.html#contact" class="btn-ghost">Contact Form</a>
+        </div>
+      </div>
+
+    </main>
+  </div><!-- /page-wrap -->
+
+  <script>
+    // Highlight active TOC item on scroll
+    const sections = document.querySelectorAll('.doc-section');
+    const tocLinks  = document.querySelectorAll('#tocList a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-15% 0px -70% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
