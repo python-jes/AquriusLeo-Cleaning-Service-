@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Book a Service – AquariusLeo Cleaning</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blue: #2BB6F1;
+    --blue-dark: #1a9fd8;
+    --dark: #1a1a2e;
+    --gray: #6b7280;
+    --border: #e5e7eb;
+    --light: #f8fafc;
+    --green: #10b981;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { height: 36px; }
+  .nav-logo span { font-weight: 700; font-size: 1rem; color: var(--dark); }
+  .nav-back {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--gray); font-size: 0.9rem; text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--blue); }
+
+  /* MAIN */
+  main {
+    max-width: 640px;
+    margin: 48px auto;
+    padding: 0 20px 80px;
+  }
+
+  .page-header { text-align: center; margin-bottom: 40px; }
+  .page-header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+  .page-header p { color: var(--gray); font-size: 1rem; }
+
+  /* STEPS */
+  .steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 40px;
+  }
+  .step {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    flex: 1; position: relative;
+  }
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 18px; left: 50%;
+    width: 100%; height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+  .step.done:not(:last-child)::after,
+  .step.active:not(:last-child)::after { background: var(--blue); }
+  .step-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: white; border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.85rem; color: var(--gray);
+    position: relative; z-index: 1;
+    transition: all 0.3s;
+  }
+  .step.active .step-circle {
+    background: var(--blue); border-color: var(--blue); color: white;
+  }
+  .step.done .step-circle {
+    background: var(--green); border-color: var(--green); color: white;
+  }
+  .step-label { font-size: 0.75rem; color: var(--gray); font-weight: 500; white-space: nowrap; }
+  .step.active .step-label { color: var(--blue); font-weight: 700; }
+  .step.done .step-label { color: var(--green); }
+
+  /* CARD */
+  .card {
+    background: white;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    padding: 36px 32px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+
+  .card-title {
+    font-size: 1.25rem; font-weight: 700; margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card-title svg { color: var(--blue); }
+
+  /* FORM FIELDS */
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block; font-weight: 600; font-size: 0.9rem;
+    margin-bottom: 8px; color: var(--dark);
+  }
+  .field label .optional {
+    color: var(--gray); font-weight: 400; font-size: 0.82rem; margin-left: 6px;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--dark);
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(43,182,241,0.12);
+  }
+  .field .input-wrap { position: relative; }
+  .field .clear-btn {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer;
+    color: var(--gray); font-size: 1.1rem; padding: 4px;
+    display: none;
+  }
+  .field .clear-btn.visible { display: flex; align-items: center; }
+  .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+
+  /* SERVICE SELECTOR */
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  .service-option {
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 12px;
+    background: white;
+  }
+  .service-option:hover { border-color: var(--blue); background: #f0fbff; }
+  .service-option.selected {
+    border-color: var(--blue); background: #e8f7fd;
+    box-shadow: 0 0 0 3px rgba(43,182,241,0.12);
+  }
+  .service-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: linear-gradient(135deg, #e8f7fd, #c8eefa);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .service-option.selected .service-icon {
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  }
+  .service-info { flex: 1; min-width: 0; }
+  .service-name { font-weight: 600; font-size: 0.9rem; color: var(--dark); }
+  .service-price { font-size: 0.8rem; color: var(--gray); }
+  .service-check {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .service-option.selected .service-check {
+    background: var(--blue); border-color: var(--blue);
+  }
+  .service-option.selected .service-check::after {
+    content: '✓'; color: white; font-size: 0.7rem; font-weight: 700;
+  }
+
+  /* PLAN CARDS */
+  .plan-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 4px;
+  }
+  .plan-option {
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    position: relative;
+    background: white;
+  }
+  .plan-option:hover { border-color: var(--blue); background: #f0fbff; }
+  .plan-option.selected { border-color: var(--blue); background: #e8f7fd; box-shadow: 0 0 0 3px rgba(43,182,241,0.12); }
+  .plan-badge {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    background: var(--blue); color: white; font-size: 0.7rem; font-weight: 700;
+    padding: 2px 10px; border-radius: 20px; white-space: nowrap;
+  }
+  .plan-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+  .plan-price { font-size: 1.4rem; font-weight: 700; color: var(--blue); }
+  .plan-price span { font-size: 0.75rem; color: var(--gray); font-weight: 400; }
+  .plan-desc { font-size: 0.75rem; color: var(--gray); margin-top: 4px; }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 28px; border-radius: 12px;
+    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.95rem;
+    cursor: pointer; transition: all 0.2s; border: none; text-decoration: none;
+  }
+  .btn-primary { background: var(--blue); color: white; }
+  .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(43,182,241,0.35); }
+  .btn-outline { background: transparent; color: var(--blue); border: 2px solid var(--blue); }
+  .btn-outline:hover { background: #f0fbff; }
+  .btn-full { width: 100%; }
+
+  .form-actions { display: flex; gap: 12px; margin-top: 8px; }
+
+  /* SUCCESS */
+  .success-box {
+    background: white; border-radius: 20px; border: 1.5px solid var(--border);
+    padding: 48px 32px; text-align: center; display: none;
+  }
+  .success-box.show { display: block; }
+  .success-icon {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; font-size: 2rem;
+  }
+  .success-box h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
+  .success-box p { color: var(--gray); margin-bottom: 28px; }
+
+  /* REQUIRED MARK */
+  .req { color: #ef4444; margin-left: 2px; }
+
+  /* VALIDATION */
+  .field input.error, .field select.error { border-color: #ef4444; }
+  .error-msg { font-size: 0.8rem; color: #ef4444; margin-top: 5px; display: none; }
+  .error-msg.show { display: block; }
+
+  /* SECTION HIDDEN */
+  .booking-form.hidden { display: none; }
+
+  /* ── RESPONSIVE ── */
+
+  /* Tablet (max 768px) */
+  @media (max-width: 768px) {
+    main { margin: 32px auto; padding: 0 20px 60px; }
+    .page-header h1 { font-size: 1.7rem; }
+    .card { padding: 28px 24px; }
+    .plan-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+  }
+
+  /* Large phone (max 600px) */
+  @media (max-width: 600px) {
+    nav { padding: 0 16px; }
+    main { margin: 20px auto; padding: 0 16px 60px; }
+    .page-header { margin-bottom: 28px; }
+    .page-header h1 { font-size: 1.5rem; }
+    .page-header p { font-size: 0.9rem; }
+    .steps { margin-bottom: 28px; }
+    .step-label { font-size: 0.7rem; }
+    .card { padding: 22px 18px; border-radius: 16px; }
+    .card-title { font-size: 1.05rem; gap: 8px; }
+    .service-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .service-option { padding: 12px 10px; gap: 8px; }
+    .service-icon { width: 34px; height: 34px; font-size: 1rem; border-radius: 8px; }
+    .service-name { font-size: 0.82rem; }
+    .service-price { font-size: 0.72rem; }
+    .plan-row { grid-template-columns: 1fr; gap: 10px; max-width: 320px; margin: 0 auto 4px; }
+    .field input, .field select, .field textarea { padding: 12px 14px; font-size: 0.9rem; }
+    .form-actions { flex-direction: column-reverse; gap: 10px; }
+    .btn { padding: 13px 20px; font-size: 0.9rem; border-radius: 10px; }
+    .success-box { padding: 36px 20px; }
+  }
+
+  /* Small phone (max 400px) */
+  @media (max-width: 400px) {
+    .service-grid { grid-template-columns: 1fr; }
+    .steps { overflow-x: auto; padding-bottom: 4px; }
+    .step-label { font-size: 0.65rem; }
+    .step-circle { width: 30px; height: 30px; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="AquariusLeo Cleaning.html" class="nav-logo">
+    <img src="AQUARIUSLEA LOGO.png" alt="AquariusLeo" style="height:36px;" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+    <span style="display:none;font-weight:700;font-size:1rem;color:var(--dark);">Aquarius<span style="color:var(--blue);">Leo</span></span>
+  </a>
+  <a href="AquariusLeo Cleaning.html" class="nav-back">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to site
+  </a>
+</nav>
+
+<main>
+  <div class="page-header">
+    <h1>Book Your Cleaning</h1>
+    <p>Fill in your details and we'll confirm your appointment shortly.</p>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps">
+    <div class="step active" id="step1-indicator">
+      <div class="step-circle">1</div>
+      <div class="step-label">Service</div>
+    </div>
+    <div class="step" id="step2-indicator">
+      <div class="step-circle">2</div>
+      <div class="step-label">Location</div>
+    </div>
+    <div class="step" id="step3-indicator">
+      <div class="step-circle">3</div>
+      <div class="step-label">Details</div>
+    </div>
+    <div class="step" id="step4-indicator">
+      <div class="step-circle">4</div>
+      <div class="step-label">Confirm</div>
+    </div>
+  </div>
+
+  <!-- STEP 1: SERVICE -->
+  <div id="step1" class="booking-form">
+    <div class="card">
+      <div class="card-title">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        What type of service do you need?
+      </div>
+
+      <div class="service-grid" id="serviceGrid">
+        <div class="service-option" data-service="Residential Cleaning" onclick="selectService(this)">
+          <div class="service-icon">🏠</div>
+          <div class="service-info">
+            <div class="service-name">Residential</div>
+            <div class="service-price">Home cleaning</div>
+          </div>
+          <div class="service-check"></div>
+        </div>
+        <div class="service-option" data-service="Commercial Cleaning" onclick="selectService(this)">
+          <div class="service-icon">🏢</div>
+          <div class="service-info">
+            <div class="service-name">Commercial</div>
+            <div class="service-price">Office & business</div>
+          </div>
+          <div class="service-check"></div>
+        </div>
+        <div class="service-option" data-service="Deep Cleaning" onclick="selectService(this)">
+          <div class="service-icon">✨</div>
+          <div class="service-info">
+            <div class="service-name">Deep Clean</div>
+            <div class="service-price">Thorough clean</div>
+          </div>
+          <div class="service-check"></div>
+        </div>
+        <div class="service-option" data-service="Carpet & Upholstery" onclick="selectService(this)">
+          <div class="service-icon">🛋️</div>
+          <div class="service-info">
+            <div class="service-name">Carpet & Upholstery</div>
+            <div class="service-price">Fabric & floors</div>
+          </div>
+          <div class="service-check"></div>
+        </div>
+        <div class="service-option" data-service="Window Cleaning" onclick="selectService(this)">
+          <div class="service-icon">🪟</div>
+          <div class="service-info">
+            <div class="service-name">Window Cleaning</div>
+            <div class="service-price">Crystal clear</div>
+          </div>
+          <div class="service-check"></div>
+        </div>
+        <div class="service-option" data-service="Post-Construction" onclick="selectService(this)">
+          <div class="service-icon">🏗️</div>
+          <div class="service-info">
+            <div class="service-name">Post-Construction</div>
+            <div class="service-price">Builder's clean</div>
+          </div>
+          <div class="service-check"></div>
+        </div>
+        <div class="service-option" data-service="Move-In/Move-Out" onclick="selectService(this)">
+          <div class="service-icon">📦</div>
+          <div class="service-info">
+            <div class="service-name">Move In/Out</div>
+            <div class="service-price">Transition clean</div>
+          </div>
+          <div class="service-check"></div>
+        </div>
+        <div class="service-option" data-service="Pest Control" onclick="selectService(this)">
+          <div class="service-icon">🦟</div>
+          <div class="service-info">
+            <div class="service-name">Pest Control</div>
+            <div class="service-price">Extermination</div>
+          </div>
+          <div class="service-check"></div>
+        </div>
+      </div>
+      <div class="error-msg" id="serviceErr">Please select a service type.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Choose your plan
+      </div>
+      <div class="plan-row">
+        <div class="plan-option" id="planBasic" data-plan="Basic Clean" data-price="$89/visit" onclick="selectPlan(this)">
+          <div class="plan-name">Basic Clean</div>
+          <div class="plan-price">$89<span>/visit</span></div>
+          <div class="plan-desc">Regular maintenance</div>
+        </div>
+        <div class="plan-option" id="planDeep" data-plan="Deep Clean" data-price="$179/visit" onclick="selectPlan(this)">
+          <div class="plan-badge">Most Popular</div>
+          <div class="plan-name">Deep Clean</div>
+          <div class="plan-price">$179<span>/visit</span></div>
+          <div class="plan-desc">Comprehensive clean</div>
+        </div>
+        <div class="plan-option" id="planPremium" data-plan="Premium Care" data-price="$299/mo" onclick="selectPlan(this)">
+          <div class="plan-name">Premium Care</div>
+          <div class="plan-price">$299<span>/mo</span></div>
+          <div class="plan-desc">Ongoing care package</div>
+        </div>
+      </div>
+      <div class="error-msg" id="planErr">Please select a plan.</div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary btn-full" onclick="nextStep(1)">
+        Continue
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2: LOCATION -->
+  <div id="step2" class="booking-form hidden">
+    <div class="card">
+      <div class="card-title">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Where do you need help?
+      </div>
+
+      <div class="field">
+        <label for="streetAddress">Street Address <span class="req">*</span></label>
+        <div class="input-wrap">
+          <input type="text" id="streetAddress" placeholder="Eg. 75 Mount Pleasant Drive, Harare" autocomplete="street-address" oninput="toggleClear('streetAddress', 'clearStreet')"/>
+          <button class="clear-btn" id="clearStreet" onclick="clearField('streetAddress', 'clearStreet')" type="button">✕</button>
+        </div>
+        <div class="error-msg" id="streetErr">Please enter your street address.</div>
+      </div>
+
+      <div class="field">
+        <label for="unitApt">Unit / Apartment No. and Name <span class="optional">(Optional)</span></label>
+        <input type="text" id="unitApt" placeholder="Eg. 2a Einwood Place" autocomplete="address-line2"/>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-outline" onclick="prevStep(2)" style="min-width:120px">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Back
+      </button>
+      <button class="btn btn-primary btn-full" onclick="nextStep(2)">
+        Continue
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 3: PERSONAL DETAILS -->
+  <div id="step3" class="booking-form hidden">
+    <div class="card">
+      <div class="card-title">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Your contact details
+      </div>
+
+      <div class="field">
+        <label for="fullName">Full Name <span class="req">*</span></label>
+        <input type="text" id="fullName" placeholder="Jane Smith" autocomplete="name"/>
+        <div class="error-msg" id="nameErr">Please enter your name.</div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email Address <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="jane@example.com" autocomplete="email"/>
+        <div class="error-msg" id="emailErr">Please enter a valid email address.</div>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone Number <span class="optional">(Optional)</span></label>
+        <input type="tel" id="phone" placeholder="+263 78 548 8604" autocomplete="tel"/>
+      </div>
+
+      <div class="field">
+        <label for="preferredDate">Preferred Date <span class="req">*</span></label>
+        <input type="date" id="preferredDate" min=""/>
+        <div class="error-msg" id="dateErr">Please select a preferred date.</div>
+      </div>
+
+      <div class="field">
+        <label for="notes">Additional Notes <span class="optional">(Optional)</span></label>
+        <textarea id="notes" rows="3" style="resize:vertical" placeholder="Any special instructions, access codes, or requests..."></textarea>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-outline" onclick="prevStep(3)" style="min-width:120px">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Back
+      </button>
+      <button class="btn btn-primary btn-full" onclick="nextStep(3)">
+        Review Booking
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 4: CONFIRM -->
+  <div id="step4" class="booking-form hidden">
+    <div class="card">
+      <div class="card-title">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Review your booking
+      </div>
+      <div id="summaryBox" style="display:flex; flex-direction:column; gap:14px;"></div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-outline" onclick="prevStep(4)" style="min-width:120px">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Back
+      </button>
+      <button class="btn btn-primary btn-full" onclick="submitBooking()">
+        ✉️ Confirm &amp; Send Booking
+      </button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-box" id="successBox">
+    <div class="success-icon">✅</div>
+    <h2>Booking Sent!</h2>
+    <p>Your booking request has been sent. Our team will contact you shortly to confirm your appointment.</p>
+    <a href="AquariusLeo Cleaning.html" class="btn btn-primary">← Return to Website</a>
+  </div>
+</main>
+
+<script>
+  let selectedService = '';
+  let selectedPlan = '';
+  let preselectedPlan = '';
+
+  // Read URL param for pre-selecting plan
+  const params = new URLSearchParams(window.location.search);
+  preselectedPlan = params.get('plan') || '';
+
+  // Set min date to tomorrow
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  document.getElementById('preferredDate').min = tomorrow.toISOString().split('T')[0];
+
+  // Pre-select plan from URL
+  if (preselectedPlan) {
+    const planMap = {
+      'basic': 'planBasic',
+      'deep': 'planDeep',
+      'premium': 'planPremium'
+    };
+    const id = planMap[preselectedPlan.toLowerCase()];
+    if (id) {
+      const el = document.getElementById(id);
+      if (el) selectPlan(el);
+    }
+  }
+
+  function selectService(el) {
+    document.querySelectorAll('.service-option').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedService = el.dataset.service;
+    document.getElementById('serviceErr').classList.remove('show');
+    el.classList.remove('error');
+  }
+
+  function selectPlan(el) {
+    document.querySelectorAll('.plan-option').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedPlan = el.dataset.plan;
+    document.getElementById('planErr').classList.remove('show');
+  }
+
+  function toggleClear(inputId, btnId) {
+    const val = document.getElementById(inputId).value;
+    document.getElementById(btnId).classList.toggle('visible', val.length > 0);
+  }
+
+  function clearField(inputId, btnId) {
+    document.getElementById(inputId).value = '';
+    document.getElementById(btnId).classList.remove('visible');
+    document.getElementById(inputId).focus();
+  }
+
+  function setStep(n) {
+    [1,2,3,4].forEach(i => {
+      document.getElementById('step'+i).classList.toggle('hidden', i !== n);
+      const indicator = document.getElementById('step'+i+'-indicator');
+      indicator.classList.remove('active','done');
+      if (i < n) indicator.classList.add('done');
+      else if (i === n) indicator.classList.add('active');
+    });
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function nextStep(current) {
+    if (current === 1) {
+      let valid = true;
+      if (!selectedService) {
+        document.getElementById('serviceErr').classList.add('show');
+        valid = false;
+      }
+      if (!selectedPlan) {
+        document.getElementById('planErr').classList.add('show');
+        valid = false;
+      }
+      if (!valid) return;
+      setStep(2);
+    } else if (current === 2) {
+      const addr = document.getElementById('streetAddress').value.trim();
+      if (!addr) {
+        document.getElementById('streetAddress').classList.add('error');
+        document.getElementById('streetErr').classList.add('show');
+        return;
+      }
+      document.getElementById('streetAddress').classList.remove('error');
+      document.getElementById('streetErr').classList.remove('show');
+      setStep(3);
+    } else if (current === 3) {
+      const name = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const date = document.getElementById('preferredDate').value;
+      let valid = true;
+      if (!name) { document.getElementById('nameErr').classList.add('show'); document.getElementById('fullName').classList.add('error'); valid = false; }
+      else { document.getElementById('nameErr').classList.remove('show'); document.getElementById('fullName').classList.remove('error'); }
+      if (!email || !email.includes('@')) { document.getElementById('emailErr').classList.add('show'); document.getElementById('email').classList.add('error'); valid = false; }
+      else { document.getElementById('emailErr').classList.remove('show'); document.getElementById('email').classList.remove('error'); }
+      if (!date) { document.getElementById('dateErr').classList.add('show'); document.getElementById('preferredDate').classList.add('error'); valid = false; }
+      else { document.getElementById('dateErr').classList.remove('show'); document.getElementById('preferredDate').classList.remove('error'); }
+      if (!valid) return;
+      buildSummary();
+      setStep(4);
+    }
+  }
+
+  function prevStep(current) {
+    setStep(current - 1);
+  }
+
+  function buildSummary() {
+    const unit = document.getElementById('unitApt').value.trim();
+    const notes = document.getElementById('notes').value.trim();
+    const date = new Date(document.getElementById('preferredDate').value + 'T00:00:00');
+    const dateStr = date.toLocaleDateString('en-ZA', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+
+    const rows = [
+      ['🧹 Service Type', selectedService],
+      ['💳 Plan', `${selectedPlan} — ${document.querySelector('.plan-option.selected')?.dataset.price || ''}`],
+      ['📍 Address', document.getElementById('streetAddress').value.trim() + (unit ? `, ${unit}` : '')],
+      ['👤 Name', document.getElementById('fullName').value.trim()],
+      ['✉️ Email', document.getElementById('email').value.trim()],
+      ['📞 Phone', document.getElementById('phone').value.trim() || '—'],
+      ['📅 Date', dateStr],
+      ['📝 Notes', notes || '—'],
+    ];
+
+    document.getElementById('summaryBox').innerHTML = rows.map(([label, val]) => `
+      <div style="display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #f3f4f6; align-items:flex-start;">
+        <div style="font-size:0.8rem; color:var(--gray); min-width:130px; padding-top:2px;">${label}</div>
+        <div style="font-weight:600; font-size:0.95rem; flex:1;">${val}</div>
+      </div>
+    `).join('');
+  }
+
+  function submitBooking() {
+    const unit = document.getElementById('unitApt').value.trim();
+    const address = document.getElementById('streetAddress').value.trim() + (unit ? `, ${unit}` : '');
+    const name = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim() || 'Not provided';
+    const date = document.getElementById('preferredDate').value;
+    const notes = document.getElementById('notes').value.trim() || 'None';
+    const plan = document.querySelector('.plan-option.selected')?.dataset.price || '';
+
+    const subject = `New Booking Request – ${selectedService} (${selectedPlan})`;
+    const body = `NEW BOOKING REQUEST
+====================
+Service: ${selectedService}
+Plan: ${selectedPlan} – ${plan}
+
+ADDRESS
+-------
+${address}
+
+CLIENT DETAILS
+--------------
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Preferred Date: ${date}
+
+NOTES
+-----
+${notes}
+
+Sent from AquariusLeo booking page.`;
+
+    const mailto = `mailto:aquariusLtd@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+
+    setTimeout(() => {
+      [1,2,3,4].forEach(i => {
+        document.getElementById('step'+i).classList.add('hidden');
+        document.getElementById('step'+i+'-indicator').classList.remove('active');
+        document.getElementById('step'+i+'-indicator').classList.add('done');
+      });
+      document.getElementById('successBox').classList.add('show');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }, 800);
+  }
+</script>
+</body>
+</html>
